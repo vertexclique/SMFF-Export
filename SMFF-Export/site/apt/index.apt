@@ -1,0 +1,11 @@
+ -----
+ SystemFactories
+ -----
+
+ 
+Introduction
+
+
+ The Export module provides methods to print the graph of a system model to a PDF file.
+ 
+ There is an example on how to use this module included in the code.
