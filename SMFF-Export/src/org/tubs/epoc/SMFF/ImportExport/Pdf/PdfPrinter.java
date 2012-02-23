@@ -1,19 +1,16 @@
 package org.tubs.epoc.SMFF.ImportExport.Pdf;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.jfree.chart.JFreeChart;
 import org.jgraph.JGraph;
 import org.tubs.epoc.SMFF.ImportExport.Pdf.Graph.Presentation;
 import org.tubs.epoc.SMFF.ModelElements.SystemModel;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
-import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.DefaultFontMapper;
 import com.lowagie.text.pdf.PdfContentByte;
@@ -21,36 +18,6 @@ import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfWriter;
 
 public class PdfPrinter {
-
-  public static void convertToPdf(JFreeChart chart, int width, int height, String filename) {
-    // step 1
-    Document document = new Document(new Rectangle(width, height));
-    try {
-      // step 2
-      PdfWriter writer;
-      writer = PdfWriter.getInstance(document, new FileOutputStream(filename));
-      // step 3
-      document.open();
-      // step 4
-      PdfContentByte cb = writer.getDirectContent();
-      PdfTemplate tp = cb.createTemplate(width, height);
-      Graphics2D g2d = tp.createGraphics(width, height, new DefaultFontMapper());
-      Rectangle2D r2d = new Rectangle2D.Double(0, 0, width, height);
-      chart.draw(g2d, r2d);
-      g2d.dispose();
-      tp.sanityCheck();
-      cb.addTemplate(tp, 0, 0);
-      cb.sanityCheck();
-    }
-    catch(DocumentException de) {
-      de.printStackTrace();
-    }
-    catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-    // step 5
-    document.close();
-  }
 
   public static void convertToPdf(SystemModel systemModel, String filename) {
     JGraph graph = new Presentation(systemModel).getSystemGraph().getGraph();
